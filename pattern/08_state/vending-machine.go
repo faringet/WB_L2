@@ -10,6 +10,31 @@ type VendingMachine struct {
 	itemPrice     int
 }
 
+func NewVendingMachine(itemCount, itemPrice int) *VendingMachine {
+	v := &VendingMachine{
+		itemCount: itemCount,
+		itemPrice: itemPrice,
+	}
+	hasItemState := &HasItemState{
+		VendingMachine: v,
+	}
+	itemRequestedState := &ItemRequestedState{
+		VendingMachine: v,
+	}
+	hasMoneyState := &HasMoneyState{
+		VendingMachine: v,
+	}
+	noItemState := &NoItemState{
+		VendingMachine: v,
+	}
+	v.setState(hasItemState)
+	v.hasItem = hasItemState
+	v.itemRequested = itemRequestedState
+	v.hasMoney = hasMoneyState
+	v.noItem = noItemState
+	return v
+}
+
 func (v *VendingMachine) AddItem(count int) error {
 	return v.currentState.AddItem(count)
 }
