@@ -35,6 +35,8 @@ fatal error: all goroutines are asleep - deadlock!
 
 Тут deadlock так как канал "забыли" закрыть. `for n := range ch` не может завершиться.
 
+___
+
 Исправленный код:
 
 ```go
